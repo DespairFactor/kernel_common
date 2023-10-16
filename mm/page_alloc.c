@@ -3202,7 +3202,7 @@ static int rmqueue_bulk(struct zone *zone, unsigned int order,
 			int migratetype, unsigned int alloc_flags)
 {
 	const bool can_resched = !preempt_count() && !irqs_disabled();
-	int i, allocated = 0;
+	int i, allocated = 0, last_mod = 0;
 	/* Caller must hold IRQ-safe pcp->lock so IRQs are disabled. */
 	spin_lock(&zone->lock);
 	for (i = 0; i < count; ++i) {
