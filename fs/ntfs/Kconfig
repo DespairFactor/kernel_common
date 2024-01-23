@@ -3,6 +3,7 @@ config NTFS_FS
 	tristate "NTFS file system support"
 	select BUFFER_HEAD
 	select NLS
+	default y
 	help
 	  NTFS is the file system of Microsoft Windows NT, 2000, XP and 2003.
 
@@ -54,6 +55,7 @@ config NTFS_RW
 	bool "NTFS write support"
 	depends on NTFS_FS
 	depends on PAGE_SIZE_LESS_THAN_64KB
+	default y
 	help
 	  This enables the partial, but safe, write support in the NTFS driver.
 
