@@ -583,11 +583,11 @@ unsigned int cpufreq_policy_transition_delay_us(struct cpufreq_policy *policy)
 		 * for platforms where transition_latency is in milliseconds, it
 		 * ends up giving unrealistic values.
 		 *
-		 * Cap the default transition delay to 2 ms, which seems to be
+		 * Cap the default transition delay to 1 ms, which seems to be
 		 * a reasonable amount of time after which we should reevaluate
 		 * the frequency.
 		 */
-    return min(latency * LATENCY_MULTIPLIER, (unsigned int)(2*MSEC_PER_SEC));
+    return min(latency * LATENCY_MULTIPLIER, (unsigned int)(1*MSEC_PER_SEC));
 	}
 
 	return LATENCY_MULTIPLIER;
