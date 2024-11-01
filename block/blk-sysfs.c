@@ -372,7 +372,7 @@ queue_rq_affinity_store(struct request_queue *q, const char *page, size_t count)
 {
 	ssize_t ret = -EINVAL;
 #ifdef CONFIG_SMP
-	unsigned long val;
+	unsigned long val = 0;  // Default to 0
 
 	ret = queue_var_store(&val, page, count);
 	if (ret < 0)
