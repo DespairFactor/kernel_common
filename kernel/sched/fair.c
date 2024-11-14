@@ -112,6 +112,7 @@ EXPORT_SYMBOL_GPL(sysctl_sched_idle_min_granularity);
  * This value is kept at sysctl_sched_latency/sysctl_sched_min_granularity
  */
 static unsigned int sched_nr_latency = 8;
+EXPORT_SYMBOL_GPL(sched_nr_latency);
 
 /*
  * After fork, child runs first. If set to 0 (default) then
@@ -132,7 +133,8 @@ unsigned int sysctl_sched_wakeup_granularity			= 1000000UL;
 EXPORT_SYMBOL_GPL(sysctl_sched_wakeup_granularity);
 static unsigned int normalized_sysctl_sched_wakeup_granularity	= 1000000UL;
 
-const_debug unsigned int sysctl_sched_migration_cost	= 0UL;
+unsigned int sysctl_sched_migration_cost	= 0UL;
+EXPORT_SYMBOL_GPL(sysctl_sched_migration_cost);
 
 int sched_thermal_decay_shift;
 static int __init setup_sched_thermal_decay_shift(char *str)
@@ -146,6 +148,69 @@ static int __init setup_sched_thermal_decay_shift(char *str)
 	return 1;
 }
 __setup("sched_thermal_decay_shift=", setup_sched_thermal_decay_shift);
+
+// Register sysctl table for these settings
+static struct ctl_table sched_tunables[] = {
+    {
+        .procname = "sched_latency_ns",
+        .data = &sysctl_sched_latency,
+        .maxlen = sizeof(unsigned int),
+        .mode = 0644,
+        .proc_handler = proc_dointvec // Simple handler without min/max constraints
+    },
+    {
+        .procname = "sched_nr_latency",
+        .data = &sched_nr_latency,
+        .maxlen = sizeof(unsigned int),
+        .mode = 0644,
+        .proc_handler = proc_dointvec
+    },
+    {
+        .procname = "sched_min_granularity_ns",
+        .data = &sysctl_sched_min_granularity,
+        .maxlen = sizeof(unsigned int),
+        .mode = 0644,
+        .proc_handler = proc_dointvec
+    },
+	{
+        .procname = "sched_idle_min_granularity_ns",
+        .data = &sysctl_sched_idle_min_granularity,
+        .maxlen = sizeof(unsigned int),
+        .mode = 0644,
+        .proc_handler = proc_dointvec
+    },
+    {
+        .procname = "sched_wakeup_granularity_ns",
+        .data = &sysctl_sched_wakeup_granularity,
+        .maxlen = sizeof(unsigned int),
+        .mode = 0644,
+        .proc_handler = proc_dointvec
+    },
+    {
+        .procname = "sched_migration_cost_ns",
+        .data = &sysctl_sched_migration_cost,
+        .maxlen = sizeof(unsigned int),
+        .mode = 0644,
+        .proc_handler = proc_dointvec
+    },
+    {
+        .procname = "sched_thermal_decay_shift",
+        .data = &sched_thermal_decay_shift,
+        .maxlen = sizeof(int),
+        .mode = 0644,
+        .proc_handler = proc_dointvec
+    },
+    {}
+};
+
+// Register the table under /proc/sys/kernel
+static int __init register_sched_tunables(void)
+{
+    register_sysctl_table(sched_tunables);
+    return 0;
+}
+
+late_initcall(register_sched_tunables);
 
 #ifdef CONFIG_SMP
 /*
