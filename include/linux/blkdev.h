@@ -604,7 +604,9 @@ struct request_queue {
 
 #define QUEUE_FLAG_MQ_DEFAULT	((0UL << QUEUE_FLAG_IO_STAT) |		\
 				 (0UL << QUEUE_FLAG_SAME_COMP) |	\
-				 (1UL << QUEUE_FLAG_NOWAIT))
+				 (1UL << QUEUE_FLAG_NOWAIT) |		\
+				 (1UL << QUEUE_FLAG_NONROT))
+
 
 void blk_queue_flag_set(unsigned int flag, struct request_queue *q);
 void blk_queue_flag_clear(unsigned int flag, struct request_queue *q);
