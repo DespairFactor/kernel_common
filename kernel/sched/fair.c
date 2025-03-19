@@ -73,9 +73,9 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_stat_runtime);
  *
  * (default: 6ms * (1 + ilog(ncpus)), units: nanoseconds)
  */
-unsigned int sysctl_sched_latency			= 2500000ULL;
+unsigned int sysctl_sched_latency			= 6000000ULL;
 EXPORT_SYMBOL_GPL(sysctl_sched_latency);
-static unsigned int normalized_sysctl_sched_latency	= 2500000ULL;
+static unsigned int normalized_sysctl_sched_latency	= 6000000ULL;
 
 /*
  * The initial- and re-scaling of tunables is configurable
@@ -95,9 +95,9 @@ unsigned int sysctl_sched_tunable_scaling = SCHED_TUNABLESCALING_LOG;
  *
  * (default: 0.75 msec * (1 + ilog(ncpus)), units: nanoseconds)
  */
-unsigned int sysctl_sched_min_granularity			= 325000ULL;
+unsigned int sysctl_sched_min_granularity			= 750000ULL;
 EXPORT_SYMBOL_GPL(sysctl_sched_min_granularity);
-static unsigned int normalized_sysctl_sched_min_granularity	= 325000ULL;
+static unsigned int normalized_sysctl_sched_min_granularity	= 750000ULL;
 
 /*
  * Minimal preemption granularity for CPU-bound SCHED_IDLE tasks.
@@ -105,7 +105,7 @@ static unsigned int normalized_sysctl_sched_min_granularity	= 325000ULL;
  *
  * (default: 0.75 msec)
  */
-unsigned int sysctl_sched_idle_min_granularity			= 325000ULL;
+unsigned int sysctl_sched_idle_min_granularity			= 750000ULL;
 EXPORT_SYMBOL_GPL(sysctl_sched_idle_min_granularity);
 
 /*
@@ -129,9 +129,9 @@ unsigned int sysctl_sched_child_runs_first __read_mostly;
  *
  * (default: 1 msec * (1 + ilog(ncpus)), units: nanoseconds)
  */
-unsigned int sysctl_sched_wakeup_granularity			= 250000UL;
+unsigned int sysctl_sched_wakeup_granularity			= 1000000UL;
 EXPORT_SYMBOL_GPL(sysctl_sched_wakeup_granularity);
-static unsigned int normalized_sysctl_sched_wakeup_granularity	= 250000UL;
+static unsigned int normalized_sysctl_sched_wakeup_granularity	= 1000000UL;
 
 unsigned int sysctl_sched_migration_cost	= 0UL;
 EXPORT_SYMBOL_GPL(sysctl_sched_migration_cost);
